@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+//plugins {
+//    id 'java'
+////    id 'org.springframework.boot' version '3.0.6'
+////    id 'io.spring.dependency-management' version '1.1.0'
+//    id 'org.graalvm.buildtools.native' version '0.9.20'
+//}
+//
+//configurations {
+//    compileOnly {
+//        extendsFrom annotationProcessor
+//    }
+//}
+
+allprojects {
+    group = 'com.ruppyrup'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '20'
+
+    repositories {
+        mavenCentral()
+    }
+}
