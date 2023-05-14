@@ -30,17 +30,17 @@ public class VirtualThreadServerApp {
         return args -> service.all().forEach(System.out::println);
     }
 
-//    @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
-//    public AsyncTaskExecutor asyncTaskExecutor() {
-//        return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor());
-//    }
-//
-//    @Bean
-//    public TomcatProtocolHandlerCustomizer<?> protocolHandlerVirtualThreadExecutorCustomizer() {
-//        return protocolHandler -> {
-//            protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
-//        };
-//    }
+    @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
+    public AsyncTaskExecutor asyncTaskExecutor() {
+        return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor());
+    }
+
+    @Bean
+    public TomcatProtocolHandlerCustomizer<?> protocolHandlerVirtualThreadExecutorCustomizer() {
+        return protocolHandler -> {
+            protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
+        };
+    }
 }
 
 @RestController
@@ -55,6 +55,11 @@ class CustomerHttpController {
     @GetMapping("/customers")
     private Collection<Customer> all() {
         return customerService.all();
+    }
+
+    @GetMapping("/thread")
+    private String getThread() {
+        return "Thread = " + Thread.currentThread();
     }
 
     @GetMapping("/customers/{name}")
